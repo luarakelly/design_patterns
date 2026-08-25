@@ -1,4 +1,4 @@
-package main.java.factory.rpg_map_generator;
+package src.main.java.factory.rpg_map_generator;
 
 public class BuildingTile implements Tile {
 

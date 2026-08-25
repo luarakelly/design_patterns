@@ -1,6 +1,6 @@
-package main.java.factory.rpg_map_generator;
+package src.main.java.factory.rpg_map_generator;
 
-public class Road implements Tile {
+public class RoadTile implements Tile {
 
     @Override
     public char getCharacter() {
