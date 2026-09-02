@@ -2,14 +2,12 @@ package abstractfactory.ASCII_art;
 
 public class ButtonA extends Button {
 
-    private String text;
-
     public ButtonA(String text) {
-        this.text = text;
+        super(text);
     }
 
     @Override
     public void display() {
-        System.out.println("[" + text + "]");
+        System.out.println("[" + getText() + "]");
     }
 }

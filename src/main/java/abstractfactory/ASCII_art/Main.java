@@ -19,5 +19,13 @@ public class Main {
         checkboxB.display();
         textFieldA.display();
         textFieldB.display();
+
+        buttonA.setText("New OK");
+        checkboxA.setText("New Enable");
+        textFieldA.setText("New Text");
+
+        buttonA.display();
+        checkboxA.display();
+        textFieldA.display();
     }
 }
