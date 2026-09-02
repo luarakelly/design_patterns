@@ -1,4 +1,4 @@
-package src.main.java.factory.rpg_map_generator;
+package factory.rpg_map_generator;
 
 import java.util.Random;
 
