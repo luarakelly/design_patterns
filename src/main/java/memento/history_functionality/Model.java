@@ -25,8 +25,6 @@ public class Model {
         color2 = savedState.getColor2();
         color3 = savedState.getColor3();
         checkboxState = savedState.isCheckboxState();
-
-        // Preserve your existing mechanism for updating the GUI.
     }
 
     public int getColor1() {
