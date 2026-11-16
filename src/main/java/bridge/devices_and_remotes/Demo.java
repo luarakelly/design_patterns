@@ -10,16 +10,10 @@ import bridge.devices_and_remotes.remotes.SmartRemote;
 
 public class Demo {
     public static void main(String[] args) {
-        // Original demo: every device works with the original remotes,
-        // including the new SmartTv.
         testDevice(new Tv());
         testDevice(new Radio());
         testDevice(new SmartTv());
-
-        // New functionality: SmartRemote with a SmartTv.
         testSmartRemote(new SmartTv());
-
-        // SmartRemote also works with an ordinary device; smart features are refused.
         testSmartRemote(new Radio());
     }
 

@@ -1,9 +1,5 @@
 package bridge.devices_and_remotes.devices;
 
-/**
- * Implementation side of the bridge.
- * Every device the remotes can control must implement these primitive operations.
- */
 public interface Device {
     boolean isEnabled();
 

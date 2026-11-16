@@ -2,10 +2,6 @@ package bridge.devices_and_remotes.remotes;
 
 import bridge.devices_and_remotes.devices.Device;
 
-/**
- * Holds the reference to the implementation (the "bridge") and delegates every
- * high-level control to the primitive operations of {@link Device}.
- */
 public class BasicRemote implements Remote {
     protected Device device;
 

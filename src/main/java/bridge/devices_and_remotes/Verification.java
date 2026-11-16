@@ -9,16 +9,11 @@ import bridge.devices_and_remotes.remotes.SmartRemote;
 
 import java.util.function.BooleanSupplier;
 
-/**
- * Self-checking verification of the new functionality (no external test library needed).
- * Run it and it prints PASS/FAIL for each check, then exits with code 1 if anything failed.
- */
 public class Verification {
     private static int passed = 0;
     private static int failed = 0;
 
     public static void main(String[] args) {
-        // --- SmartTv works with the original remotes (new implementation, old abstraction) ---
         SmartTv tv1 = new SmartTv();
         BasicRemote basic = new BasicRemote(tv1);
         basic.power();
@@ -28,7 +23,6 @@ public class Verification {
         new AdvancedRemote(tv1).mute();
         check("AdvancedRemote mutes SmartTv", () -> tv1.getVolume() == 0);
 
-        // --- SmartTv own behaviour ---
         SmartTv tv2 = new SmartTv();
         tv2.browseInternet("example.com");
         check("SmartTv refuses to browse when off", () -> tv2.getCurrentPage() == null);
@@ -48,7 +42,6 @@ public class Verification {
         check("Turning off clears browser and app",
                 () -> !tv2.isEnabled() && tv2.getCurrentPage() == null && tv2.getCurrentApp() == null);
 
-        // --- SmartRemote voice control with a SmartTv (new abstraction, new implementation) ---
         SmartTv tv3 = new SmartTv();
         SmartRemote smart = new SmartRemote(tv3);
         check("Voice 'turn on' is understood", () -> smart.voiceControl("turn on"));
@@ -77,14 +70,13 @@ public class Verification {
         smart.voiceControl("turn off");
         check("Voice 'turn off' turns the TV off", () -> !tv3.isEnabled());
 
-        // --- SmartRemote with ordinary devices (new abstraction, old implementations) ---
         Radio radio = new Radio();
         SmartRemote radioRemote = new SmartRemote(radio);
         radioRemote.voiceControl("power on");
         radioRemote.voiceControl("volume 55");
         check("SmartRemote controls a Radio by voice", () -> radio.isEnabled() && radio.getVolume() == 55);
         check("Smart feature on Radio returns false", () -> !radioRemote.voiceControl("browse example.com"));
-        radioRemote.browseInternet("example.com"); // must not throw
+        radioRemote.browseInternet("example.com");
         check("Internet button on Radio does not crash", () -> true);
 
         Tv oldTv = new Tv();

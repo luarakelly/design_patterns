@@ -2,10 +2,6 @@ package bridge.devices_and_remotes.devices;
 
 import java.util.List;
 
-/**
- * NEW: a concrete implementation of the bridge. Behaves like a normal TV for the basic
- * operations and additionally supports browsing the internet and launching apps.
- */
 public class SmartTv implements SmartDevice {
     private static final List<String> INSTALLED_APPS = List.of("YouTube", "Netflix", "Spotify", "Yle Areena");
 
@@ -28,7 +24,6 @@ public class SmartTv implements SmartDevice {
     @Override
     public void disable() {
         on = false;
-        // Turning the TV off closes the browser and any running app.
         currentPage = null;
         currentApp = null;
     }
@@ -51,7 +46,6 @@ public class SmartTv implements SmartDevice {
     @Override
     public void setChannel(int channel) {
         this.channel = channel;
-        // Switching to a broadcast channel leaves the browser and any running app.
         currentPage = null;
         currentApp = null;
     }

@@ -5,19 +5,12 @@ import bridge.devices_and_remotes.devices.SmartDevice;
 
 import java.util.Locale;
 
-/**
- * NEW: a refined abstraction. Adds voice control and internet/app buttons on top of the
- * advanced remote. It still talks to the device only through the bridge interfaces, so it
- * works with every {@link Device}. Smart-only features are used when the device is a
- * {@link SmartDevice} and are politely refused otherwise.
- */
 public class SmartRemote extends AdvancedRemote {
 
     public SmartRemote(Device device) {
         super(device);
     }
 
-    /** Dedicated "internet" button on the remote. */
     public void browseInternet(String url) {
         System.out.println("Remote: browse " + url);
         SmartDevice smartDevice = asSmartDevice();
@@ -26,7 +19,6 @@ public class SmartRemote extends AdvancedRemote {
         }
     }
 
-    /** Dedicated "apps" button on the remote. */
     public void openApp(String appName) {
         System.out.println("Remote: open app " + appName);
         SmartDevice smartDevice = asSmartDevice();
@@ -35,14 +27,6 @@ public class SmartRemote extends AdvancedRemote {
         }
     }
 
-    /**
-     * Interprets a spoken command and translates it into remote operations.
-     * Supported commands:
-     * "turn on", "turn off", "volume up", "volume down", "volume N", "mute",
-     * "channel up", "channel down", "channel N", "browse URL", "open APP".
-     *
-     * @return true if the command was understood and executed, false otherwise
-     */
     public boolean voiceControl(String command) {
         System.out.println("Remote: voice command \"" + command + "\"");
         if (command == null || command.isBlank()) {
@@ -52,7 +36,6 @@ public class SmartRemote extends AdvancedRemote {
 
         String normalized = command.trim().toLowerCase(Locale.ROOT).replaceAll("\\s+", " ");
 
-        // 1) Fixed phrases mapped directly to existing remote buttons.
         switch (normalized) {
             case "turn on", "power on" -> {
                 if (!device.isEnabled()) {
@@ -87,11 +70,9 @@ public class SmartRemote extends AdvancedRemote {
                 return true;
             }
             default -> {
-                // Commands with an argument are handled below.
             }
         }
 
-        // 2) Commands of the form "<verb> <argument>".
         String[] words = normalized.split(" ", 2);
         String verb = words[0];
         String argument = words.length > 1 ? words[1] : "";
@@ -132,7 +113,6 @@ public class SmartRemote extends AdvancedRemote {
                 }
             }
             default -> {
-                // Not a known verb.
             }
         }
 
@@ -140,7 +120,6 @@ public class SmartRemote extends AdvancedRemote {
         return false;
     }
 
-    /** Returns the device as a SmartDevice, or prints a message and returns null if it is not one. */
     private SmartDevice asSmartDevice() {
         if (device instanceof SmartDevice smartDevice) {
             return smartDevice;
